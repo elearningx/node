@@ -103,7 +103,7 @@ if (process.env.NODE_ENV !== "production") {
 //         app.listen(process.env.PORT,()=>{console.log(`MVNA running in ${process.env.PORT}`)});
 //     }})
     
-const PORT = process.env.PORT || 4000; // Use process.env.PORT if available, otherwise, use port 4000
+const PORT =  4000; // Use process.env.PORT if available, otherwise, use port 4000
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log('process.env.NODE_ENV', process.env.NODE_ENV);
