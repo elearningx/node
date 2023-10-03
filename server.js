@@ -24,12 +24,12 @@ i18n.configure({
     locales: ['en'],
     directory: __dirname + '/app/locales',
     defaultLocale: 'en',
-}); 
+});
 let swaggerUi = require('swagger-ui-express');
 
 // HTTP Authentication
-var basicAuth = require('basic-auth'); 
-var auth = function (req, res, next) {
+var basicAuth = require('basic-auth');
+var auth = function(req, res, next) {
     var user = basicAuth(req);
     if (!user || !user.name || !user.pass) {
         res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
@@ -50,12 +50,12 @@ global.appRoot = path.resolve(__dirname);
 db = mongoose();
 const app = express();
 
-app.get('/', function (req, res, next) {
+app.get('/', function(req, res, next) {
     res.send('Hi Buddy');
 });
 
 /* Old path for serving public folder */
-app.use('/public', exp.static(__dirname + '/public')); 
+app.use('/public', exp.static(__dirname + '/public'));
 
 if (process.env.NODE_ENV !== "production") {
     var options = {
@@ -69,19 +69,19 @@ if (process.env.NODE_ENV !== "production") {
     const modules = './app/modules';
     fs.readdirSync(modules).forEach(file => {
 
-        if(file ==='Admin' || file === 'Roles' || file === 'User'){
+        if (file === 'Admin' || file === 'Roles' || file === 'User') {
 
-        if (fs.existsSync(modules + '/' + file + '/swagger.json')) {
-            const stats = fs.statSync(modules + '/' + file + '/swagger.json');
-            const fileSizeInBytes = stats.size;
-            if (fileSizeInBytes) {
-                let swaggerData = fs.readFileSync(modules + '/' + file + '/swagger.json');
-                swaggerData = swaggerData ? JSON.parse(swaggerData) : { paths: {}, definitions: {} };
-                mainSwaggerData.paths = { ...swaggerData.paths, ...mainSwaggerData.paths };
-                mainSwaggerData.definitions = { ...swaggerData.definitions, ...mainSwaggerData.definitions };
+            if (fs.existsSync(modules + '/' + file + '/swagger.json')) {
+                const stats = fs.statSync(modules + '/' + file + '/swagger.json');
+                const fileSizeInBytes = stats.size;
+                if (fileSizeInBytes) {
+                    let swaggerData = fs.readFileSync(modules + '/' + file + '/swagger.json');
+                    swaggerData = swaggerData ? JSON.parse(swaggerData) : { paths: {}, definitions: {} };
+                    mainSwaggerData.paths = {...swaggerData.paths, ...mainSwaggerData.paths };
+                    mainSwaggerData.definitions = {...swaggerData.definitions, ...mainSwaggerData.definitions };
+                }
             }
         }
-    }
     });
     if (config.isHTTPAuthForSwagger && config.isHTTPAuthForSwagger == 'true') {
         app.get("/docs", auth, (req, res, next) => {
@@ -102,10 +102,14 @@ if (process.env.NODE_ENV !== "production") {
 //     }else{
 //         app.listen(process.env.PORT,()=>{console.log(`MVNA running in ${process.env.PORT}`)});
 //     }})
-    
-const PORT =  4000; // Use process.env.PORT if available, otherwise, use port 4000
+
+const PORT = 4003; // Use process.env.PORT if available, otherwise, use port 4000
 
 app.listen(PORT, '0.0.0.0', () => {
-  console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-  console.log(`Server running at http://0.0.0.0:${PORT}`);
+    console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+    console.log(`Server running at http://0.0.0.0:${PORT}`);
 });
+// app.listen(PORT, 'localhost', () => {
+//     console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+//     console.log(`Server running at http://localhost:${PORT}`);
+// });

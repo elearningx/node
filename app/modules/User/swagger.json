@@ -6,17 +6,15 @@
                     "Users"
                 ],
                 "description": "Create new user in system",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "required": true,
-                        "in": "body",
-                        "description": "User that we want to create",
-                        "schema": {
-                            "$ref": "#/definitions/Register"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "required": true,
+                    "in": "body",
+                    "description": "User that we want to create",
+                    "schema": {
+                        "$ref": "#/definitions/Register"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -36,16 +34,14 @@
                     "Users"
                 ],
                 "description": "Login",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "description": "Login",
-                        "schema": {
-                            "$ref": "#/definitions/Login"
-                        }
+                "parameters": [{
+                    "name": "body",
+                    "in": "body",
+                    "description": "Login",
+                    "schema": {
+                        "$ref": "#/definitions/Login"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -65,16 +61,14 @@
                     "Users"
                 ],
                 "description": "Send forgot password mail",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "Send forgot password mail",
-                        "schema": {
-                            "$ref": "#/definitions/ForgotPassword"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Send forgot password mail",
+                    "schema": {
+                        "$ref": "#/definitions/ForgotPassword"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -94,16 +88,14 @@
                     "Users"
                 ],
                 "description": "Reset password",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "in": "body",
-                        "description": "Reset password",
-                        "schema": {
-                            "$ref": "#/definitions/ResetPassword"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "in": "body",
+                    "description": "Reset password",
+                    "schema": {
+                        "$ref": "#/definitions/ResetPassword"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -123,8 +115,7 @@
                     "Users"
                 ],
                 "description": "Upload file",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "file",
                         "required": true,
                         "in": "formData",
@@ -158,8 +149,7 @@
                     "Users"
                 ],
                 "description": "Change password",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Change password",
@@ -194,8 +184,7 @@
                     "Users"
                 ],
                 "description": "Update User Profile",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "user",
                         "required": true,
                         "in": "body",
@@ -231,15 +220,13 @@
                     "Users"
                 ],
                 "description": "Get User Profile",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "required": true,
-                        "in": "header",
-                        "description": "Authorization token",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "required": true,
+                    "in": "header",
+                    "description": "Authorization token",
+                    "type": "string"
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -256,15 +243,13 @@
                     "Users"
                 ],
                 "description": "Logout user",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "required": true,
-                        "in": "header",
-                        "description": "Authorization token",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "required": true,
+                    "in": "header",
+                    "description": "Authorization token",
+                    "type": "string"
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -281,8 +266,7 @@
                     "Users"
                 ],
                 "description": "Verify user email",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "token",
                         "required": true,
                         "in": "query",
@@ -313,15 +297,13 @@
                     "Users"
                 ],
                 "description": "Refresh access token",
-                "parameters": [
-                    {
-                        "name": "refreshToken",
-                        "required": true,
-                        "in": "header",
-                        "description": "Authorization token",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [{
+                    "name": "refreshToken",
+                    "required": true,
+                    "in": "header",
+                    "description": "Authorization token",
+                    "type": "string"
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -338,17 +320,15 @@
                     "Users"
                 ],
                 "description": "Create new user using social login",
-                "parameters": [
-                    {
-                        "name": "user",
-                        "required": true,
-                        "in": "body",
-                        "description": "User that we want to create",
-                        "schema": {
-                            "$ref": "#/definitions/socialAccess"
-                        }
+                "parameters": [{
+                    "name": "user",
+                    "required": true,
+                    "in": "body",
+                    "description": "User that we want to create",
+                    "schema": {
+                        "$ref": "#/definitions/socialAccess"
                     }
-                ],
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -385,15 +365,15 @@
                     "uniqueItems": true
                 },
                 "lastname": {
-                    "example": "Bhavsar",
+                    "example": "Ram",
                     "type": "string"
                 },
                 "firstname": {
-                    "example": "Neha",
+                    "example": "Giri",
                     "type": "string"
                 },
                 "username": {
-                    "example": "neha_bhavsar",
+                    "example": "Giri_Ram",
                     "type": "string",
                     "uniqueItems": true
                 },
@@ -472,15 +452,15 @@
             ],
             "properties": {
                 "lastname": {
-                    "example": "Bhavsar",
+                    "example": "Ram",
                     "type": "string"
                 },
                 "firstname": {
-                    "example": "Neha",
+                    "example": "Giri",
                     "type": "string"
                 },
                 "username": {
-                    "example": "neha_bhavsar",
+                    "example": "Giri_Ram",
                     "type": "string",
                     "uniqueItems": true
                 },

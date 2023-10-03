@@ -41,7 +41,6 @@ class UsersController extends Controller {
             // check emailId is exist or not
             let filter = { "$or": [{ "emailId": this.req.body.emailId.toLowerCase() }, { "username": this.req.body.username }] }
             const user = await Users.findOne(filter);
-
             //if user exist give error
             if (!_.isEmpty(user) && (user.emailId || user.username)) {
                 return this.res.send({ status: 0, message: i18n.__("DUPLICATE_EMAIL_OR_USERNAME") });
@@ -52,39 +51,37 @@ class UsersController extends Controller {
                     return this.res.send(isPasswordValid)
                 }
                 let password = await (new CommonService()).ecryptPassword({ password: data['password'] });
-
-                data = { ...data, password: password, role: 'user' };
+                data = {...data, password: password, role: 'user' };
                 data['emailId'] = data['emailId'].toLowerCase();
-
+                data['emailVerificationStatus'] = true;
                 // save new user
                 const newUserId = await new Model(Users).store(data);
-
                 // if empty not save user details and give error message.
                 if (_.isEmpty(newUserId)) {
                     return this.res.send({ status: 0, message: i18n.__('USER_NOT_SAVED') })
-                }
-                else {
+                } else {
                     const token = await new Globals().generateToken(newUserId._id);
 
                     //sending mail to verify user
-                    let emailData = {
-                        emailId: data['emailId'],
-                        emailKey: 'signup_mail',
-                        replaceDataObj: { fullName: data.firstname + " " + data.lastname, verificationLink: Config.rootUrl + '/users/verifyUser?token=' + token }
-                    };
-                    const sendingMail = await new Email().sendMail(emailData);
-                    console.log('sendingMail', sendingMail);
-                    if (sendingMail && sendingMail.status == 0) {
-                        transaction.rollback();
-                        return this.res.send(sendingMail);
-                    }
-                    else if (sendingMail && !sendingMail.response) {
-                        transaction.rollback();
-                        return this.res.send({ status: 0, message: i18n.__('MAIL_NOT_SEND_SUCCESSFULLY') });
-                    }
-                    transaction.update('User', newUserId, { verificationToken: token, verificationTokenCreationTime: new Date() });
-                    // await Users.findByIdAndUpdate(newUserId, { verificationToken: token, verificationTokenCreationTime: new Date() });
-                    await transaction.run();
+                    // let emailData = {
+                    //     emailId: data['emailId'],
+                    //     emailKey: 'signup_mail',
+                    //     replaceDataObj: { fullName: data.firstname + " " + data.lastname, verificationLink: Config.rootUrl + '/users/verifyUser?token=' + token }
+                    // };
+                    // console.log(emailData, "emailData")
+
+                    // const sendingMail = await new Email().sendMail(emailData);
+                    // console.log('sendingMail', sendingMail);
+                    // if (sendingMail && sendingMail.status == 0) {
+                    //     transaction.rollback();
+                    //     return this.res.send(sendingMail);
+                    // } else if (sendingMail && !sendingMail.response) {
+                    //     transaction.rollback();
+                    //     return this.res.send({ status: 0, message: i18n.__('MAIL_NOT_SEND_SUCCESSFULLY') });
+                    // }
+                    // transaction.update('User', newUserId, { verificationToken: token, verificationTokenCreationTime: new Date() });
+                    // // await Users.findByIdAndUpdate(newUserId, { verificationToken: token, verificationTokenCreationTime: new Date() });
+                    // await transaction.run();
                     return this.res.send({ status: 1, message: i18n.__('REGISTRATION_SCUCCESS') });
                 }
 
@@ -200,11 +197,9 @@ class UsersController extends Controller {
 
             if (_.isEmpty(user)) {
                 return this.res.send({ status: 0, message: i18n.__("USER_NOT_EXIST_OR_DELETED") });
-            }
-            else if (!user.emailVerificationStatus) {
+            } else if (!user.emailVerificationStatus) {
                 return this.res.send({ status: 0, message: i18n.__("VERIFY_EMAIL") });
-            }
-            else if (!user.password) {
+            } else if (!user.password) {
                 return this.res.send({ status: 0, message: i18n.__("SET_PASSWORD") });
             }
 
@@ -421,8 +416,7 @@ class UsersController extends Controller {
             let filePath = "";
             if (Config.s3upload && Config.s3upload == 'true') {
                 filePath = file.uploadFileOnS3(formObject.files.file[0]);
-            }
-            else {
+            } else {
                 let fileObject = await file.store();
                 /***** uncommit this line to do manipulations in image like compression and resizing ****/
                 // let fileObject = await file.saveImage();
@@ -468,7 +462,9 @@ class UsersController extends Controller {
                 return _this.res.send({ status: 0, message: i18n.__("PROPER_SOCIALKEY") })
             }
             /****** query for checking socialId is existing or not *********/
-            let filter = { [socialKey]: _this.req.body.socialId }
+            let filter = {
+                [socialKey]: _this.req.body.socialId
+            }
 
             /**** checking user is existing or not *******/
             let user = await Users.findOne(filter, userProjection.user);
@@ -485,14 +481,12 @@ class UsersController extends Controller {
                         /******** This is the signUp process for socialAccess with emailId *****/
                         let newUser = await this.createSocialUser(details);
                         return _this.res.send(newUser)
-                    }
-                    else {
+                    } else {
                         /**** social access code *****/
                         let updatedUser = await this.checkingSocialIdAndUpdate(userDetails, details);
                         return _this.res.send(updatedUser)
                     }
-                }
-                else {
+                } else {
                     /******** This is the signUp process for socialAccess without emailId *****/
                     let newUser = await this.createSocialUser(details);
                     return _this.res.send(newUser)
@@ -514,15 +508,13 @@ class UsersController extends Controller {
                         let updatedUser = await this.checkingSocialIdAndUpdate(userDetails, details);
                         return _this.res.send(updatedUser)
                     }
-                }
-                else {
+                } else {
                     /****** updating details in existing user with emailId details ********/
                     let updatedUser = await this.updateSocialUserDetails(details);
                     return _this.res.send(updatedUser)
                 }
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error)
             _this.res.send({ status: 0, message: error });
         }
@@ -530,7 +522,7 @@ class UsersController extends Controller {
 
     /******** Create Users through socialIds ******/
     createSocialUser(details) {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             try {
                 let newUser = await new Model(Users).store(details);
                 if (Config.useRefreshToken && Config.useRefreshToken == 'true') {
@@ -548,9 +540,11 @@ class UsersController extends Controller {
 
     /******** Create Users through socialIds ******/
     updateSocialUserDetails(details) {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             try {
-                let updatedUser = await Users.findOneAndUpdate({ [details.socialKey]: details.socialId }, details, { upsert: true, new: true }).select(userProjection.user);
+                let updatedUser = await Users.findOneAndUpdate({
+                    [details.socialKey]: details.socialId
+                }, details, { upsert: true, new: true }).select(userProjection.user);
                 if (Config.useRefreshToken && Config.useRefreshToken == 'true') {
                     let { token, refreshToken } = await new Globals().getTokenWithRefreshToken({ id: updatedUser._id });
                     resolve({ status: 1, message: i18n.__("LOGIN_SUCCESS"), access_token: token, refreshToken: refreshToken, data: updatedUser });
@@ -566,7 +560,7 @@ class UsersController extends Controller {
 
     /******** Create Users through socialIds ******/
     checkingSocialIdAndUpdate(userDetails, details) {
-        return new Promise(async (resolve, reject) => {
+        return new Promise(async(resolve, reject) => {
             try {
                 if (userDetails[details.socialKey] && userDetails[details.socialKey] !== details.socialId) {
                     resolve({ status: 0, message: i18n.__("LINK_WITH_ANOTHER_SOCIAL_ACCOUNT") });

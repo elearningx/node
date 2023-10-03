@@ -6,8 +6,7 @@
                     "Admin User Management"
                 ],
                 "description": "Admins list",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -41,8 +40,7 @@
                     "Admin User Management"
                 ],
                 "description": "Column values",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -76,8 +74,7 @@
                     "Admin User Management"
                 ],
                 "description": "Column settings",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -111,8 +108,7 @@
                     "Admin User Management"
                 ],
                 "description": "Column settings",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -146,14 +142,12 @@
                     "Admin User Management"
                 ],
                 "description": "Get filters.",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "description": "Authorization token",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [{
+                    "name": "Authorization",
+                    "in": "header",
+                    "description": "Authorization token",
+                    "type": "string"
+                }],
                 "produces": [
                     "application/json"
                 ],
@@ -170,8 +164,7 @@
                     "Admin User Management"
                 ],
                 "description": "Delete filter",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "filterId",
                         "in": "path",
                         "description": "Id of filter"
@@ -199,8 +192,7 @@
                     "Admin User Management"
                 ],
                 "description": "Search",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -234,8 +226,7 @@
                     "Admin User Management"
                 ],
                 "description": "Delete users",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "ids",
                         "in": "body",
                         "description": "Ids of users",
@@ -269,8 +260,7 @@
                     "Admin User Management"
                 ],
                 "description": "Change user status",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "userIds",
                         "in": "body",
                         "description": "Ids of users",
@@ -304,8 +294,7 @@
                     "Admin User Management"
                 ],
                 "description": "Get user",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "userId",
                         "in": "path",
                         "description": "Id of user"
@@ -333,8 +322,7 @@
                     "Admin User Management"
                 ],
                 "description": "Download CSV",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -368,8 +356,7 @@
                     "Admin User Management"
                 ],
                 "description": "Download Excel",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "body",
                         "in": "body",
                         "description": "Params",
@@ -403,8 +390,7 @@
                     "Admin User Management"
                 ],
                 "description": "Create new admin user in system",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "user",
                         "in": "body",
                         "description": "User that we want to create",
@@ -439,8 +425,7 @@
                     "Admin User Management"
                 ],
                 "description": "Update admin user in system",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "user",
                         "in": "body",
                         "description": "User that we want to edit",
@@ -505,8 +490,7 @@
             ],
             "properties": {
                 "columns": {
-                    "example": [
-                        {
+                    "example": [{
                             "key": "firstName",
                             "status": false
                         },
@@ -534,10 +518,9 @@
                     "type": "string"
                 },
                 "filter": {
-                    "example": [
-                        {
+                    "example": [{
                             "firstname": [
-                                "Neha",
+                                "Giri",
                                 "Madhuri"
                             ]
                         },
